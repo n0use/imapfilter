@@ -1,0 +1,10 @@
+Install imapfilter
+
+copy config.lua and account.lua to ~/.imapfilter/
+
+Edit your ~/.imapfilter/account.lua to change any imap server flags
+
+Put imapfilter.sh somewhere in your path (~/bin/imapfilter.sh is a good spot) - 
+add a line to your shell init script (eg .bashrc) to run imapfilter.sh
+
+Done!
