@@ -1,36 +1,31 @@
 #!/bin/sh
 # make sure imapfilter is started - 
-# run script out of .profile/.bashrc/.cshrc/whatever 
-# requires ~/.imapfilter/config.lua imapfilter configuration
-# all code written to run on FreeBSD 10.x - easily adaptable to any other *nix
+# run script out of .profile, requires imapfilter.lua config
 #
-# John Newman jnn@synfin.org 09/15
+# John Newman jnn@synfin.org 06/02/15
+#
+# this script can ALSO be used to restart imapfilter (to reload changed config
+# or if you've changed your password) - use the flag "restart"
+#
+
 
 user=$(whoami)
 pid=$(ps -U $user -o pid,args | awk '$2 ~ /^[^ ]*imapfilter$/ { print $1 }')
 log="/home/$user/var/log/imapfilter.log"
 
+if [ "$1" = "restart" ] ; then
+    shift
+    echo "Restarting - killing current imapfilter [pid=$pid]"
+    kill $pid &> /dev/null
+    pid=""
+    sleep 1
+fi
+
 if [ "$1" = "-v" ]  ; then 
     verbose=1
     args="-l $log -d ${log}.debug -v"
-    shift
 else
     args="-l $log"
-fi
-
-if [ "$1" = "restart" ] ; then
-    echo "Restarting imapfilter - killing pid [$pid]"
-    kill $pid
-    echo -n ".."
-    sleep 3
-    kill -9 $pid
-    pid=$(ps -U $user -o pid,args | awk '$2 ~ /^[^ ]*imapfilter$/ { print $1 }')
-    if [ -n "$pid" ] ; then
-        echo "Cannot kill! imapfilter (pid = $pid) still running."
-        echo "Aborting"
-        exit 1
-    fi
-    pid=""
 fi
 
 if [ -z "$pid" ] ; then 

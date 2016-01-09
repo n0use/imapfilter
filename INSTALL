@@ -7,4 +7,8 @@ Edit your ~/.imapfilter/account.lua to change any imap server flags
 Put imapfilter.sh somewhere in your path (~/bin/imapfilter.sh is a good spot) - 
 add a line to your shell init script (eg .bashrc) to run imapfilter.sh
 
+If you like, put the included passwd.sh somewhere in your .bashrc - this
+will make sure any changes to passwd result in a restart of imapfilter, with
+the new mail password.
+
 Done!
