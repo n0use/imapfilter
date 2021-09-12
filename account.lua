@@ -3,7 +3,7 @@
 
 host = 'localhost'
 user = os.getenv("USER") 
-pass = get_password('Enter IMAP password for imapfilter (you only enter it once, then it demonizes): ')
+pass = get_password('Enter IMAP password for imapfilter (you only enter it once, then it daemonizes): ')
 
 account = IMAP {
 	server =   host,
